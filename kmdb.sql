@@ -159,3 +159,30 @@
 -- Represented by agent
 -- ====================
 -- Christian Bale
+
+CREATE TABLE studios (id INTEGER PRIMARY KEY, name TEXT);
+CREATE TABLE movies (id INTEGER PRIMARY KEY, title TEXT, year INTEGER, rating TEXT, studio_id INTEGER);
+CREATE TABLE actors (id INTEGER PRIMARY KEY, name TEXT);
+CREATE TABLE roles (id INTEGER PRIMARY KEY, movie_id INTEGER, actor_id INTEGER, character_name TEXT);
+
+INSERT INTO studios (name) VALUES ('Warner Bros.');
+
+INSERT INTO movies (title, year, rating, studio_id) VALUES 
+('Batman Begins', 2005, 'PG-13', 1),
+('The Dark Knight', 2008, 'PG-13', 1),
+('The Dark Knight Rises', 2012, 'PG-13', 1);
+
+INSERT INTO actors (name) VALUES ('Christian Bale'), ('Michael Caine'), ('Liam Neeson'), ('Katie Holmes'), ('Gary Oldman');
+
+INSERT INTO roles (movie_id, actor_id, character_name) VALUES 
+(1, 1, 'Bruce Wayne'), (1, 2, 'Alfred'), (1, 3, 'Ra''s Al Ghul'), (1, 4, 'Rachel Dawes'), (1, 5, 'Jim Gordon');
+
+SELECT movies.title, movies.year, movies.rating, studios.name 
+FROM movies INNER JOIN studios ON movies.studio_id = studios.id;
+
+SELECT movies.title, actors.name, roles.character_name 
+FROM roles
+INNER JOIN movies ON roles.movie_id = movies.id
+INNER JOIN actors ON roles.actor_id = actors.id;
+
+SELECT name FROM actors WHERE name = 'Christian Bale';
